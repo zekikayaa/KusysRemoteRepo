@@ -10,7 +10,7 @@ public static class CourseExtension
     {
         return courses.Select(course => new CourseViewModel()
             {
-                Id = course.Id, Code = course.Code, Name = course.Name, Students = course.Students,
+                Id = course.Id, Code = course.Code, Name = course.Name, Students = course.Students.MapToViewModelList(),
             })
             .ToList();
     }
@@ -22,7 +22,7 @@ public static class CourseExtension
             Id = course.Id,
             Code = course.Code,
             Name = course.Name,
-            Students = course.Students
+            Students = course.Students.MapToViewModelList()
         };
     }
 

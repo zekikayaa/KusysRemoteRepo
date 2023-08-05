@@ -31,7 +31,7 @@ public static class StudentExtensions
         };
     }
 
-    public static List<StudentViewModel> MapToViewModelList(this List<Student> students)
+    public static List<StudentViewModel> MapToViewModelList(this ICollection<Student> students)
     {
         var list = new List<StudentViewModel>();
 
@@ -50,4 +50,6 @@ public static class StudentExtensions
 
         return list;
     }
+    
+    
 }

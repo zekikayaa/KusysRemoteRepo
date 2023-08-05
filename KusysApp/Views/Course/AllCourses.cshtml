@@ -1,0 +1,111 @@
+@model List<Kusys.Domains.ViewModel.CourseViewModel>;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+
+    var counter = 1;
+}
+
+<h2>All Courses</h2>
+
+<div class="container col-md-6">
+    <div class="row">
+        <table class="table mt-4">
+            <thead class="thead-light">
+            <tr>
+                <th >#</th>
+                <th class="text-center" span="1" style="width: 70%;">Course</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td >#@counter</td>
+                    <td id="@course.Id" data-bs-toggle="modal" data-bs-target="#openMatchedStudentModal" class="courseInfo text-center">
+                        <a href="#">@course.Code @course.Name <span class="tab"></span></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+            </tbody>
+        </table>
+
+    </div>
+    <!-- Pagination not implemented -->
+    <div class="row offset-10">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
+<!-- Student Detail Modal -->
+<div class="modal fade" id="openMatchedStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog   modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Mathed Student List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="matchedStudentList">
+                     
+                </ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+   
+          
+          let courses =  JSON.parse('@Html.Raw(Json.Serialize(Model))');
+   
+         $(".courseInfo").click(function() {
+             
+             $(".matchedStudentList").children().remove();
+             
+              let selectedCourseId  = $(this).attr("id");
+              
+              let selectedCourse =  courses.filter( f => f.id == selectedCourseId)[0] 
+             
+              $.each(selectedCourse.students, function( index, value ) {
+                 
+                 $(".matchedStudentList").append(`<li>${value.firstName} ${value.lastName} </li>`);
+             
+              })
+              
+         });
+    
+    </script>
+}

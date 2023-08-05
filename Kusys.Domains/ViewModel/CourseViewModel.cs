@@ -9,7 +9,7 @@ public class CourseViewModel
 
     public string Name { get; set; }
 
-    public ICollection<Student> Students { get; set; }
+    public ICollection<StudentViewModel> Students { get; set; }
 
     public override string ToString()
     {

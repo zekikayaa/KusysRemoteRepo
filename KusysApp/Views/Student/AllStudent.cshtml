@@ -40,7 +40,12 @@
             {
                 <tr>
                     <td >#@counter</td>
-                    <td id="@student.Id" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="studentInfo text-center">@student.FirstName @student.LastName</td>
+                    <td id="@student.Id" data-bs-toggle="modal" data-bs-target="#openStudentDetailModal" class="studentInfo text-center">
+                        <a href="#">
+                            @student.FirstName @student.LastName <span class="tab"></span>
+                        </a>
+
+                    </td>
                     <td>
                         <a href="/Student/Update/?studentId=@student.Id" type="button" id="@student.Id" class="updateStudent btn btn-primary">Update</a>
                     </td>
@@ -82,11 +87,11 @@
 
 
 <!-- Student Detail Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="openStudentDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Student Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

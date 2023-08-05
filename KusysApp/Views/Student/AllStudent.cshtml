@@ -1,0 +1,19 @@
+@model List<Kusys.Domains.Domains.Student>
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+
+    var isCreateSuccessMessage = TempData["SuccessfullyCreated"] as string;
+
+}
+
+<h2>All Student</h2>
+
+
+@if (!string.IsNullOrEmpty(isCreateSuccessMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Heyy!</strong> @isCreateSuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}

@@ -20,8 +20,7 @@ public class StudentViewModel
     [Display(Name = "Last Name:")]
     public string LastName { get; set; }
 
-    [Display(Name = "BirthDate:")]
-    public DateTime BirthDate { get; set; }
+    [Display(Name = "BirthDate:")] public DateTime BirthDate { get; set; } = new DateTime(2000, 01, 01);
 
     public CourseViewModel? Course { get; set; }
 

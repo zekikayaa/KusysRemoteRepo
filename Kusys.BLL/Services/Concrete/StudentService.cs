@@ -3,6 +3,7 @@ using Kusys.BLL.Services.Abstract;
 using Kusys.DAL.Repository.Abstract;
 using Kusys.Domains.Domains;
 using Kusys.Domains.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kusys.BLL.Services.Concrete;
 
@@ -74,8 +75,11 @@ public class StudentService : IStudentService
 
     public async Task<List<Student>> GetAllWithCourseAsync()
     {
-        var allStudentWithCourse = await _studentRepository.GetAllWithIncludingAsync(nameof(Course));
-
+        var allStudentWithCourse = await _studentRepository
+            .Query()
+            .OrderByDescending(w => w.Id)
+            .ToListAsync();
+        
         return allStudentWithCourse;
     }
 }

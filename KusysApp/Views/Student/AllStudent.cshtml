@@ -1,9 +1,14 @@
-@model List<Kusys.Domains.Domains.Student>
+@using System.Text.Json
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Kusys.Domains.ViewModel.StudentListViewModel
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 
     var isCreateSuccessMessage = TempData["SuccessfullyCreated"] as string;
+
+    var counter = 1;
 
 }
 
@@ -16,4 +21,124 @@
         <strong>Heyy!</strong> @isCreateSuccessMessage
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+}
+
+<div class="container col-md-6">
+    <div class="row">
+        <table class="table mt-4">
+            <thead class="thead-light">
+            <tr>
+                <th >#</th>
+                <th class="text-center" span="1" style="width: 70%;">Student</th>
+                <th span="1" style="width: 15%;">Upate</th>
+                <th span="1" style="width: 15%;">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td >#@counter</td>
+                    <td id="@student.Id" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="studentInfo text-center">@student.FirstName @student.LastName</td>
+                    <td>
+                        <a href="/Student/Update/?studentId=@student.Id" type="button" id="@student.Id" class="updateStudent btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a type="button" href="/Student/Delete/?studentId=@student.Id" id="@student.Id" class=" deleteStudent btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+            </tbody>
+        </table>
+
+    </div>
+    <!-- Pagination not implemented -->
+    <div class="row offset-10">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
+<!-- Student Detail Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group mt-2">
+                    <label asp-for="@Model.Student.FirstName" class="control-label"></label>
+                    <input readonly class="form-control" placeholder="Enter your first name" asp-for="@Model.Student.FirstName"/>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="@Model.Student.LastName" class="control-label"></label>
+                    <input readonly class="form-control" placeholder="Enter your last name" asp-for="@Model.Student.LastName"/>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="@Model.Student.BirthDate" class="control-label"></label>
+                    <input readonly type="datetime-local" class="form-control" placeholder="Enter your birth date" asp-for="@Model.Student.BirthDate"/>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="@Model.Student.CourseId" class="control-label"></label>
+                    <input readonly class="form-control" placeholder="Enter your last name" id="Student_CourseId"/>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+    
+      let students  = JSON.parse('@Html.Raw(Json.Serialize(Model.Students))');
+      
+      let courses  = JSON.parse('@Html.Raw(Json.Serialize(Model.Student.Courses))');
+    
+      $(".studentInfo").click(function() {
+    
+        let selectedStudentId   =$(this).attr("id");
+       
+        let selectedStudent =  students.filter( f => f.id == selectedStudentId)[0] 
+              
+        let matchedCourse =  courses.filter( f => f.value == selectedStudent.courseId)[0] 
+  
+        $('#Student_FirstName').val(selectedStudent.firstName)
+        $('#Student_LastName').val(selectedStudent.lastName)
+        $('#Student_BirthDate').val(selectedStudent.birthDate)
+        $('#Student_CourseId').val(matchedCourse.text)
+          
+      });
+    
+    </script>
 }

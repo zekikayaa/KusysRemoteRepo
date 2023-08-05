@@ -22,15 +22,12 @@ public class StudentViewModel
 
     [Display(Name = "BirthDate:")] public DateTime BirthDate { get; set; } = new DateTime(2000, 01, 01);
 
-    public CourseViewModel? Course { get; set; }
-
 
     [Required(ErrorMessage = "Please select the course for student")]
     [Range(1, double.MaxValue, ErrorMessage = "Please select the course for student")]
     [Display(Name = "Course:")]
     public int CourseId { get; set; }
 
-    // public List<CourseViewModel>? Courses { get; set; }
 
     public List<SelectListItem> Courses { get; set; }
 

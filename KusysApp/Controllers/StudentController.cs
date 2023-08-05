@@ -57,8 +57,68 @@ public class StudentController : Controller
 
 
     [HttpGet]
-    public IActionResult AllStudent()
+    public async Task<IActionResult> AllStudent()
     {
-        return View();
+        var allStudent = await _studentService.GetAllAsync();
+
+        var courses = await _courseService.GetAllAsync();
+
+        var studentListViewModel = new StudentListViewModel()
+        {
+            Students = allStudent.MapToViewModelList(),
+            Student = new StudentViewModel() { Courses = courses.ConvertToSelectList(0, false) },
+        };
+
+        return View(studentListViewModel);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Update([FromQuery] int studentId)
+    {
+        var student = await _studentService.GetByIdWithCourseAsync(studentId);
+
+        if (student == null)
+            return RedirectToAction("AllStudent");
+
+        var studentViewModel = student.MapToViewModel();
+
+        var courses = await _courseService.GetAllAsync();
+
+        studentViewModel.Courses = courses.ConvertToSelectList(student.CourseId, true);
+
+        return View(studentViewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(StudentViewModel studentViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            var courses = await _courseService.GetAllAsync();
+
+            studentViewModel.Courses = courses.ConvertToSelectList(studentViewModel.CourseId, true);
+
+            return View(studentViewModel);
+        }
+
+        var student = studentViewModel.MapToEntity();
+
+        await _studentService.UpdateStudentAsync(student);
+
+        return RedirectToAction("AllStudent");
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Delete([FromQuery] int studentId)
+    {
+        var student = await _studentService.GetByIdWithCourseAsync(studentId);
+
+        if (student == null)
+            return RedirectToAction("AllStudent");
+
+        var courses = await _studentService.DeleteStudentAsync(studentId);
+
+        return RedirectToAction("AllStudent");
     }
 }

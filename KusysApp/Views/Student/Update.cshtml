@@ -1,0 +1,44 @@
+@model Kusys.Domains.ViewModel.StudentViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Update Student</h2>
+
+
+<div class="col-6 offset-3">
+    <form asp-controller="Student" asp-action="Update">
+        <input hidden="hidden" asp-for="Id"/>
+
+        <div class="form-group mt-2">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input class="form-control" placeholder="Enter your first name" asp-for="FirstName"/>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="LastName" class="control-label"></label>
+            <input class="form-control" placeholder="Enter your last name" asp-for="LastName"/>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="BirthDate" class="control-label"></label>
+            <input type="datetime-local" class="form-control" placeholder="Enter your birth date" asp-for="BirthDate"/>
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="CourseId" class="control-label"></label>
+            <select id="CourseId" name="CourseId" asp-items="@Model.Courses" class="form-control">
+                @if (!Model.Courses.Any(s => s.Selected))
+                {
+                    <option value="0" selected>Select Course</option>
+                }
+            </select>
+            <span asp-validation-for="CourseId" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2  mb-12 offset-10 ">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>

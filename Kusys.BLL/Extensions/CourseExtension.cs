@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kusys.BLL.Extensions;
 
-
 public static class CourseExtension
 {
     public static List<CourseViewModel> MapToViewModelList(this List<Course> courses)
@@ -16,28 +15,18 @@ public static class CourseExtension
             .ToList();
     }
 
-    public static List<SelectListItem> ConvertToSelectList(this List<Course> courses, int selectedOptionId = 0, bool markAsSelected = false)
+    public static CourseViewModel MapToViewModel(this Course course)
     {
-        var listItems = new List<SelectListItem>();
-
-        foreach (var course in courses)
+        return new CourseViewModel()
         {
-            var item = new SelectListItem()
-            {
-                Value = course.Id.ToString(),
-                Text = $"{course.Code} - {course.Name}"
-            };
-
-            if (markAsSelected && course.Id == selectedOptionId)
-                item.Selected = true;
-
-            listItems.Add(item);
-        }
-
-        return listItems;
+            Id = course.Id,
+            Code = course.Code,
+            Name = course.Name,
+            Students = course.Students
+        };
     }
 
-    public static List<SelectListItem> ConvertToSelectList(this List<CourseViewModel> courses, int selectedOptionId = 0, bool markAsSelected = false)
+    public static List<SelectListItem> ConvertToSelectList(this List<Course> courses, int selectedOptionId = 0, bool markAsSelected = false)
     {
         var listItems = new List<SelectListItem>();
 

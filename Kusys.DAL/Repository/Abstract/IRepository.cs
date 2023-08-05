@@ -8,9 +8,11 @@ public interface IRepository<TEntity>
 
     Task<TEntity?> GetByIdWithIncludeAsync(int id, params string[] includes);
 
-    IQueryable<TEntity> Query(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null);
+    IQueryable<TEntity> Query();
 
-    IQueryable<TEntity> QueryWithInclude(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, params string[] includes);
+    // IQueryable<TEntity> Query(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null);
+    //
+    // IQueryable<TEntity> QueryWithInclude(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, params string[] includes);
 
     Task<List<TEntity>> GetAllAsync();
 

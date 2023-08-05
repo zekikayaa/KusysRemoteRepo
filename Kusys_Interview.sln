@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KusysApp", "KusysApp\KusysApp.csproj", "{39C0D7E9-2043-42DF-A0C7-093B3EA97F56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kusys.DAL", "Kusys.DAL\Kusys.DAL.csproj", "{300B4323-256C-4637-BAB4-5925D6780E1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kusys.Domains", "Kusys.Domains\Kusys.Domains.csproj", "{9CF424E6-52B5-4563-84BF-F4343C005AA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{39C0D7E9-2043-42DF-A0C7-093B3EA97F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39C0D7E9-2043-42DF-A0C7-093B3EA97F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39C0D7E9-2043-42DF-A0C7-093B3EA97F56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{300B4323-256C-4637-BAB4-5925D6780E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{300B4323-256C-4637-BAB4-5925D6780E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{300B4323-256C-4637-BAB4-5925D6780E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{300B4323-256C-4637-BAB4-5925D6780E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF424E6-52B5-4563-84BF-F4343C005AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF424E6-52B5-4563-84BF-F4343C005AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF424E6-52B5-4563-84BF-F4343C005AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF424E6-52B5-4563-84BF-F4343C005AA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

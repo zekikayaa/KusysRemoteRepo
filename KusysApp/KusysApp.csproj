@@ -6,4 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Kusys.BLL\Kusys.BLL.csproj" />
+      <ProjectReference Include="..\Kusys.DAL\Kusys.DAL.csproj" />
+    </ItemGroup>
+
 </Project>

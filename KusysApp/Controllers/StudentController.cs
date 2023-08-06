@@ -21,7 +21,7 @@ public class StudentController : Controller
     {
         var allCourses = await _courseService.GetAllAsync();
 
-        TempData["SuccessfullyCreated"] = string.Empty;
+        TempData["errorOrSuccessfully"] = string.Empty;
 
         var selectList = allCourses.ConvertToSelectList();
 
@@ -42,7 +42,7 @@ public class StudentController : Controller
 
             studentViewModel.Courses = courses.ConvertToSelectList(studentViewModel.CourseId, true);
 
-            TempData["SuccessfullyCreated"] = string.Empty;
+            TempData["errorOrSuccessfully"] = string.Empty;
 
             return View(studentViewModel);
         }
@@ -50,7 +50,7 @@ public class StudentController : Controller
         await _studentService.AddNewStudentAsync(studentViewModel);
 
 
-        TempData["SuccessfullyCreated"] = "Student Created Successfully";
+        TempData["errorOrSuccessfully"] = "Student Created Successfully";
 
         return RedirectToAction("AllStudent");
     }
@@ -103,7 +103,10 @@ public class StudentController : Controller
 
         var student = studentViewModel.MapToEntity();
 
-        await _studentService.UpdateStudentAsync(student);
+        var result = await _studentService.UpdateStudentAsync(student);
+
+        if (result)
+            TempData["errorOrSuccessfully"] = "Student Update Successfully";
 
         return RedirectToAction("AllStudent");
     }
@@ -115,9 +118,17 @@ public class StudentController : Controller
         var student = await _studentService.GetByIdWithCourseAsync(studentId);
 
         if (student == null)
-            return RedirectToAction("AllStudent");
+        {
+            TempData["errorOrSuccessfully"] = "Cannot find student";
 
-        var courses = await _studentService.DeleteStudentAsync(studentId);
+            return RedirectToAction("AllStudent");
+        }
+
+
+        var result = await _studentService.DeleteStudentAsync(studentId);
+
+        if (result)
+            TempData["errorOrSuccessfully"] = "Student Deleted Success Fully";
 
         return RedirectToAction("AllStudent");
     }
